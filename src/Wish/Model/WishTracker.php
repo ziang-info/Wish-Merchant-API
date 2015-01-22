@@ -20,20 +20,20 @@ namespace Wish\Model;
 class WishTracker{
 
   private $tracking_provider;
-  private $tracking_id;
-  private $note;
+  private $tracking_number;
+  private $ship_note;
 
-  public function __construct($tracking_provider,$tracking_id=null,$note=null){
+  public function __construct($tracking_provider,$tracking_number=null,$ship_note=null){
 
     $this->tracking_provider = $tracking_provider;
-    if($tracking_id)$this->tracking_id = $tracking_id;
-    if($note)$this->note = $note;
+    if($tracking_number)$this->tracking_number = $tracking_number;
+    if($ship_note)$this->ship_note = $ship_note;
     
 
   }
 
    public function getParams(){
-    $keys = array('tracking_provider','tracking_id','note');
+    $keys = array('tracking_provider','tracking_number','ship_note');
     $params = array();
     foreach($keys as $key){
       if(isset($this->$key)){
