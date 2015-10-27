@@ -20,8 +20,8 @@ require_once '../vendor/autoload.php';
 use Wish\WishClient;
 use Wish\Exception\ServiceResponseException;
 
-$key = 'JHBia2RmMiQxMDAkMTlxN0YyS00wYnFYa3JJMkJnRGdYQSRDVllqZmVCbk1VWjVhak13OUgxTk91Z2kwUDg=';
-$client = new WishClient($key,'sandbox');
+$token = 'ACCESS_TOKEN';
+$client = new WishClient($token,'sandbox');
 
 $product = array(
   'name'=>'Red Shoe',

@@ -17,12 +17,15 @@
 
 
 require_once '../vendor/autoload.php';
+use Wish\WishAuth;
 use Wish\WishClient;
 
+$auth = new WishAuth('CLIENT_ID','CLIENT_SECRET','sandbox');
+$response = $auth->getToken('ACCESS_TOKEN','https://website.com');
 
-$key = 'JHBia2RmMiQxMDAkTG1WTUNTRkVLSVdRa3ZJZXcvZ2ZndyRoM1pNL3BoQmtmZG8vbnlRWFl0WE1XWnozMjA=';
-$client = new WishClient($key,'sandbox');
+$token = $response->getData()->access_token;
 
+$client = new WishClient($token,'sandbox');
 
 print "RESULT: ".$client->authTest();
 

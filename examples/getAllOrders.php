@@ -22,9 +22,8 @@ use Wish\Model\WishTracker;
 use Wish\Exception\OrderAlreadyFulfilledException;
 use Wish\Model\WishReason;
 
-
-$key = 'JHBia2RmMiQxMDAkMTlxN0YyS00wYnFYa3JJMkJnRGdYQSRDVllqZmVCbk1VWjVhak13OUgxTk91Z2kwUDg=';
-$client = new WishClient($key,'sandbox');
+$token = 'ACCESS_TOKEN';
+$client = new WishClient($token,'sandbox');
 
 //Fulfill one order by ID
 //$tracker = new WishTracker('USPS','123123123','Thanks for buying!');

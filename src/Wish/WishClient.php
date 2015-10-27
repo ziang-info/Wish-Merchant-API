@@ -34,9 +34,9 @@ class WishClient{
 
   const LIMIT = 50;
 
-  public function __construct($api_key,$session_type='prod',$merchant_id=null){
+  public function __construct($access_token,$session_type='prod',$merchant_id=null){
 
-    $this->session = new WishSession($api_key,$session_type,$merchant_id);
+    $this->session = new WishSession($access_token,$session_type,$merchant_id);
 
   }
 
@@ -45,7 +45,17 @@ class WishClient{
     $request = new WishRequest($this->session,$type,$path,$params);
     $response = $request->execute();
     if($response->getStatusCode()==4000){
-      throw new UnauthorizedRequestException("Check API key",
+      throw new UnauthorizedRequestException("Unauthorized access",
+        $request,
+        $response);
+    }
+    if($response->getStatusCode()==1015){
+      throw new UnauthorizedRequestException("Access Token expired",
+        $request,
+        $response);
+    }
+    if($response->getStatusCode()==1016){
+      throw new UnauthorizedRequestException("Access Token revoked",
         $request,
         $response);
     }

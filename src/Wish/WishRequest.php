@@ -19,7 +19,7 @@ namespace Wish;
 use Wish\Exception\ConnectionException;
 
 class WishRequest{
-  const VERSION = "v1/";
+  const VERSION = "v2/";
   const BASE_PROD_PATH = "https://merchant.wish.com/api/";
   const BASE_SANDBOX_PATH = "https://sandbox.merchant.wish.com/api/";
   const BASE_STAGE_PATH = "https://merch.corp.contextlogic.com/api/";
@@ -32,7 +32,7 @@ class WishRequest{
     $this->session = $session;
     $this->method = $method;
     $this->path = $path;
-    $params["key"] = $session->getAPIKey();
+    $params['access_token'] = $session->getAccessToken();
     if($session->getMerchantId())$params['merchant_id']=$session->merchant_id;
     $this->params = $params;
   }

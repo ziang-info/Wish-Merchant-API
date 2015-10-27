@@ -42,8 +42,8 @@ require_once 'vendor/autoload.php';
 
 use Wish\WishClient;
 
-$key = 'JHBia2RmMiQxMDAkTG1WTUNTRkVLSVdRa3ZJZXcvZ2ZndyRoM1pNL3BoQmtmZG8vbnlRWFl0WE1XWnozMjA=';
-$client = new WishClient($key,'sandbox');
+$token = 'ACCESS_TOKEN';
+$client = new WishClient($token,'sandbox');
 
 
 print "RESULT: ".$client->authTest();

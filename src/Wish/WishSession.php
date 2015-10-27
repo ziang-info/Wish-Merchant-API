@@ -26,8 +26,8 @@ class WishSession{
   private static $session_type;
   private static $merchant_id;
 
-  public function __construct($api_key,$session_type,$merchant_id=null){
-    $this->api_key = $api_key;
+  public function __construct($access_token,$session_type,$merchant_id=null){
+    $this->access_token = $access_token;
     $this->merchant_id = $merchant_id;
     switch($session_type){
       case 'sandbox':
@@ -41,8 +41,8 @@ class WishSession{
     }
   }
 
-  public function getAPIKey(){
-    return $this->api_key;
+  public function getAccessToken(){
+    return $this->access_token;
   }
   public function getSessionType(){
     return $this->session_type;
