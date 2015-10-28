@@ -25,6 +25,8 @@ use Wish\Model\WishProductVariation;
 use Wish\Model\WishOrder;
 use Wish\Model\WishTracker;
 use Wish\Model\WishReason;
+use Wish\Model\WishAddress;
+use Wish\Model\WishTicket;
 
 
 class WishClient{
@@ -99,6 +101,8 @@ class WishClient{
 
   }
 
+  // PRODUCT
+
   public function getProductById($id){
     $params = array('id'=>$id);
     $response = $this->getResponse('GET','product',$params);
@@ -127,28 +131,45 @@ class WishClient{
 
     return "success";
   }
+
   public function enableProduct(WishProduct $product){
     $this->enableProductById($product->id);
   }
+
   public function enableProductById($id){
     $params = array('id'=>$id);
     $response = $this->getResponse('POST','product/enable',$params);
     return "success";
   }
+
   public function disableProduct(WishProduct $product){
     $this->disableProductById($product->id);
   }
+
   public function disableProductById($id){
     $params = array('id'=>$id);
-    $response = $this->getResponse('POST','product/dusable',$params);
+    $response = $this->getResponse('POST','product/disable',$params);
     return "success";
   }
+
   public function getAllProducts(){
     return $this->getResponseIter(
       'GET',
       'product/multi-get',
       "Wish\Model\WishProduct");
   }
+
+  public function removeExtraImages(WishProduct $product){
+    return $this->removeExtraImagesById($product->id);
+  }
+
+  public function removeExtraImagesById($id){
+    $params = array('id'=>$id);
+    $response = $this->getResponse('POST','product/remove-extra-images',$params);
+    return "success";
+  }
+
+  // PRODUCT VARIATION
 
   public function createProductVariation($object){
     $response = $this->getResponse('POST','variant/add',$object);
@@ -206,6 +227,8 @@ class WishClient{
       'variant/multi-get',
       "Wish\Model\WishProductVariation");
   }
+
+  // ORDER
 
   public function getOrderById($id){
     $response = $this->getResponse('GET','order',array('id'=>$id));
@@ -265,10 +288,63 @@ class WishClient{
   public function updateTrackingInfo(WishOrder $order,WishTracker $tracker){
     return $this->updateTrackingInfoById($order->order_id,$tracker);
   }
+
   public function updateTrackingInfoById($id,WishTracker $tracker){
     $params = $tracker->getParams();
     $params['id']=$id;
     $response = $this->getResponse('POST','order/modify-tracking',$params);
+    return "success";
+  }
+
+  public function updateShippingInfo(WishOrder $order,WishAddres $address){
+      return $this->updateShippingInfoById($order->order_id,$address);
+  }
+
+  public function updateShippingInfoById($id,WishAddress $address){
+    $params = $address->getParams();
+    $params['id']=$id;
+    $response = $this->getResponse('POST','order/change-shipping',$params);
+    return "success";
+  }
+
+  // TICKET
+
+  public function getTicketById($id){
+    $params['id']=$id;
+    $response = $this->getResponse('GET','ticket',$params);
+    return new Wishticket($response->getData());
+  }
+
+  public function getAllActionRequiredTickets(){
+    return $this->getResponseIter(
+      'GET',
+      'ticket/get-action-required',
+      "Wish\Model\WishTicket");
+  }
+
+  public function replyToTicketById($id,$reply){
+    $params['id']=$id;
+    $params['reply']=$reply;
+    $response = $this->getResponse('POST','ticket/reply',$params);
+    return "success";
+  }
+
+  public function closeTicketById($id){
+    $params['id']=$id;
+    $response = $this->getResponse('POST','ticket/close',$params);
+    return "success";
+  }
+
+  public function appealTicketById($id){
+    $params['id']=$id;
+    $response = $this->getResponse('POST','ticket/appeal-to-wish-support',$params);
+    return "success";
+  }
+
+  public function reOpenTicketById($id,$reply){
+    $params['id']=$id;
+    $params['reply']=$reply;
+    $response = $this->getResponse('POST','ticket/re-open',$params);
     return "success";
   }
 
