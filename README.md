@@ -1,4 +1,4 @@
-# Wish SDK for PHP
+# Wish SDK for Java
 
 ## Documentation
 
