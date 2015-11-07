@@ -1,6 +1,6 @@
-<?php 
+
 /**
- * Copyright 2014 Wish.com, ContextLogic or its affiliates. All Rights Reserved.
+ * Copyright 2015 Ziang.info, ContextLogic or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -15,17 +15,28 @@
  * limitations under the License.
  */
 
-namespace Wish\Model;
+package org.acein.wish.model;
 
-class WishProduct{
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Hashtable;
+import java.util.Iterator;
 
-  public function __construct($object){
+public class WishProduct{
+    
+    private Hashtable product;
 
+  public WishProduct(Hashtable object){
+
+      /*
     $product = $object->Product;
+    
     $vars = get_object_vars($product);
+    
     foreach ($vars as $key=>$val){
       $this->$key = $val;
     }
+    
     $variants = array();
 
     foreach ($product->variants as $variant){
@@ -33,16 +44,32 @@ class WishProduct{
     }
     $this->variants = $variants;
     
+    
+    Iterator it = object.iterator();
+        while (it.hasNext()) {
+            String key = (String) it.next();
+            if (key != null) {
+                params.put(key, product.get(key));
+            }
+        }
+    */
   }
 
-  public function getParams($keys){
-    $params = array();
-    foreach($keys as $key){
-      if(isset($this->$key)){
-        $params[$key] = $this->$key;
-      }
-    }
-    return $params;
+  public Hashtable getParams(ArrayList keys){
+    Hashtable params = new Hashtable();
+
+        Iterator it = keys.iterator();
+        while (it.hasNext()) {
+            String key = (String) it.next();
+            if (key != null) {
+                params.put(key, product.get(key));
+            }
+        }
+        return params;
+  }
+  
+  public String getId(){
+      return (String)product.get("id");
   }
 
 }

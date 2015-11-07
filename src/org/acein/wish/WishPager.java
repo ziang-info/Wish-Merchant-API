@@ -1,4 +1,4 @@
-<?php
+
 /**
  * Copyright 2014 Wish.com, ContextLogic or its affiliates. All Rights Reserved.
  *
@@ -14,32 +14,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Wish;
+package org.acein.wish;
 
-class WishPager{
+public class WishPager{
   
-  private $pagerData;
-  private $next;
-  private $prev;
+  private WishPager pagerData;
+  private String next;
+  private String prev;
 
-  public function __construct($pager){
-    $this->pagerData = $pager;
+  public WishPager(WishPager pager){
+    this.pagerData = pager;
 
-    if(isset($pager->next)){
-      $this->next = $pager->next;
+    if(pager.next != null){
+      this.next = pager.next;
     }
-    if(isset($pager->prev)){
-      $this->prev = $pager->previous;
+    
+    if(pager.prev != null){
+      this.prev = pager.prev;//ious;
     }
   }
 
-  public function hasNext(){
-    return isset($this->next);
+  public boolean hasNext(){
+    return (this.next != null);
   }
 
-  public function hasPrev(){
-    return isset($this->prev);
+  public boolean hasPrev(){
+    return (this.prev != null);
   }
-
 
 }

@@ -15,84 +15,13 @@
  * limitations under the License.
  */
 
-/*
-// Refer to official PHP SDK
-
-namespace Wish;
-
-use Wish\Exception\UnauthorizedRequestException;
-use Wish\Exception\ServiceResponseException;
-use Wish\Exception\OrderAlreadyFulfilledException;
-use Wish\Model\WishProduct;
-use Wish\Model\WishProductVariation;
-use Wish\Model\WishOrder;
-use Wish\Model\WishTracker;
-use Wish\Model\WishReason;
-
-
-class WishAuth{
-  private $client_id;
-  private $client_secret;
-
-  public function __construct($client_id,$client_secret,$session_type='prod'){
-    this.client_id = $client_id;
-    this.client_secret = $client_secret;
-    this.session = new WishSession('',$session_type,null);
-  }
-
-  public function getToken($code, $redirect_uri){
-    $type = 'POST';
-    $path = 'oauth/access_token';
-    $params = array(
-      'client_id'=>this.client_id,
-      'client_secret'=>this.client_secret,
-      'code'=>$code,
-      'grant_type'=>'authorization_code',
-      'redirect_uri'=>$redirect_uri);
-
-    $request = new WishRequest(this.session,$type,$path,$params);
-    $response = $request->execute();
-    if($response->getStatusCode()==4000){
-      throw new UnauthorizedRequestException("Unauthorized access",
-        $request,
-        $response);
-    }
-    if($response->getStatusCode()==1016){
-      throw new UnauthorizedRequestException("Access code expired",
-        $request,
-        $response);
-    }
-
-    return $response;
-  }
-
-  public function refreshToken($refresh_token){
-    $type = 'POST';
-    $path = 'oauth/refresh_token';
-    $params = array(
-      'client_id'=>this.client_id,
-      'client_secret'=>this.client_secret,
-      'refresh_token'=>$refresh_token,
-      'grant_type'=>'refresh_token');
-
-    $request = new WishRequest(this.session,$type,$path,$params);
-    $response = $request->execute();
-    if($response->getStatusCode()==4000){
-      throw new UnauthorizedRequestException("Unauthorized access",
-        $request,
-        $response);
-    }
-
-    return $response;
-  }
-}
-*/
-
-
 package org.acein.wish;
 
 import java.lang.reflect.Array;
 import java.util.Hashtable;
+import org.acein.wish.exception.ConnectionException;
+import org.acein.wish.exception.InvalidArgumentException;
+import org.acein.wish.exception.UnauthorizedRequestException;
 
 
 public class WishAuth {
@@ -116,7 +45,7 @@ public class WishAuth {
         this.session = new WishSession("", session_type, null);
     }
 
-  public String getToken(String code, String redirect_uri){
+  public WishResponse getToken(String code, String redirect_uri) throws Exception, UnauthorizedRequestException, InvalidArgumentException{
     String type = "POST";
     String path = "oauth/access_token";
     Hashtable params = new Hashtable<String,String>();
@@ -127,38 +56,36 @@ public class WishAuth {
       params.put("redirect_uri",redirect_uri);
 
     WishRequest request = new WishRequest(this.session,type,path,params);
-    $response = $request->execute();
-    if($response->getStatusCode()==4000){
-      throw new UnauthorizedRequestException("Unauthorized access",
-        $request,
-        $response);
+    WishResponse response = request.execute();
+    if(response.getStatusCode()==4000){
+      throw new UnauthorizedRequestException("Unauthorized access",request,response);
     }
-    if($response->getStatusCode()==1016){
+    if(response.getStatusCode()==1016){
       throw new UnauthorizedRequestException("Access code expired",
-        $request,
-        $response);
+        request,
+       response);
     }
 
-    return $response;
+    return response;
   }
 
-  public function refreshToken($refresh_token){
-    $type = "POST";
-    $path = "oauth/refresh_token";
-    $params = array(
-      "client_id"=>this.client_id,
-      "client_secret"=>this.client_secret,
-      "refresh_token"=>$refresh_token,
-      "grant_type"=>"refresh_token");
+  public WishResponse refreshToken(String refresh_token) throws UnauthorizedRequestException, ConnectionException, InvalidArgumentException, Exception{
+    String type = "POST";
+    String path = "oauth/refresh_token";
+    Hashtable params = new Hashtable();
+      params.put("client_id",  this.client_id);
+      params.put("client_secret",this.client_secret);
+      params.put("refresh_token",refresh_token);
+      params.put("grant_type","refresh_token");
 
-    $request = new WishRequest(this.session,$type,$path,$params);
-    $response = $request->execute();
-    if($response->getStatusCode()==4000){
+    WishRequest request = new WishRequest(this.session,type,path,params);
+    WishResponse response = request.execute();
+    if(response.getStatusCode()==4000){
       throw new UnauthorizedRequestException("Unauthorized access",
-        $request,
-        $response);
+        request,
+        response);
     }
 
-    return $response;
+    return response;
   }
 }

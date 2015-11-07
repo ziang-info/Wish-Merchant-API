@@ -1,6 +1,6 @@
-<?php
+
 /**
- * Copyright 2014 Wish.com, ContextLogic or its affiliates. All Rights Reserved.
+ * Copyright 2015 Ziang.info, ContextLogic or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -14,51 +14,57 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace Wish;
+package org.acein.wish;
 
-class WishResponse{
+import java.util.ArrayList;
+import java.util.Hashtable;
+
+public class WishResponse{
   
-  private $request;
-  private $responseData;
-  private $rawResponse;
+  private WishRequest request;
+  private Hashtable responseData;
+  private String rawResponse;
+  
+  private WishPager pager;
 
-  private $status_code;
+  private int status_code;
 
-  public function __construct($request,$responseData,$rawResponse){
-    $this->request = $request;
-    $this->responseData = $responseData;
-    $this->rawResponse = $rawResponse;
-    if(isset($this->responseData->paging)){
-      $this->pager = new WishPager($this->responseData->paging);
+  public WishResponse(WishRequest request,Hashtable responseData,String rawResponse){
+    this.request = request;
+    this.responseData = responseData;
+    this.rawResponse = rawResponse;
+    if(this.responseData.get("paging") != null){
+      this.pager = new WishPager((WishPager)this.responseData.get("paging"));
     }
   }
 
-  public function getStatusCode(){
-    return $this->responseData->code;
+  public int getStatusCode(){
+    return (int)this.responseData.get("code");
   }
 
-  public function getData(){
-    return $this->responseData->data;
+  public Object getData(){
+    return this.responseData.get("data");
   }
-  public function hasMore(){
-    if(isset($this->pager)){
-      return $this->pager->hasNext();
+  
+  public boolean hasMore(){
+    if(this.pager!=null){
+      return this.pager.hasNext();
     }else {
       return false;
     }
   }
 
-  public function getMessage(){
-    return $this->responseData->message;
+  public String getMessage(){
+    return (String)this.responseData.get("message");
   }
-  public function getRequest(){
-    return $this->request;
+  public WishRequest getRequest(){
+    return this.request;
   }
-  public function getResponse(){
-    return $this->responseData;
+  public Hashtable getResponse(){
+    return this.responseData;
   }
-  public function getRawResponse(){
-    return $this->rawResponse;
+  public String getRawResponse(){
+    return this.rawResponse;
   }
 
 

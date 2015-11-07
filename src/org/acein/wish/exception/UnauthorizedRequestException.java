@@ -1,4 +1,4 @@
-<?php
+
 /**
  * Copyright 2014 Wish.com, ContextLogic or its affiliates. All Rights Reserved.
  *
@@ -15,6 +15,14 @@
  * limitations under the License.
  */
 
-namespace Wish\Exception;
+package org.acein.wish.exception;
 
-class UnauthorizedRequestException extends ServiceResponseException{}
+import org.acein.wish.WishRequest;
+import org.acein.wish.WishResponse;
+
+public class UnauthorizedRequestException extends ServiceResponseException{
+
+    public UnauthorizedRequestException(String message, WishRequest request, WishResponse response) {
+        super(message, request, response);
+    }
+}

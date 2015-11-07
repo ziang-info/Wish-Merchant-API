@@ -1,4 +1,4 @@
-<?php
+
 /**
  * Copyright 2014 Wish.com, ContextLogic or its affiliates. All Rights Reserved.
  *
@@ -15,12 +15,18 @@
  * limitations under the License.
  */
 
-namespace Wish\Model;
+package org.acein.wish.model;
 
-class WishOrder{
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Iterator;
 
-  public function __construct($order){
+public class WishOrder{
+    
+    private Hashtable order;
 
+  public WishOrder(Hashtable order){
+      /*
     $order = $order->Order;
   
     $vars = get_object_vars($order);
@@ -28,10 +34,11 @@ class WishOrder{
       $this->$key = $val;
     }
     $this->ShippingDetail = new WishShippingDetail($order->ShippingDetail);
-
+              */
   }
 
-  public function getParams($keys){
+  public Hashtable getParams(ArrayList keys){
+      /*
     $params = array();
     foreach($keys as $key){
       if(isset($this->$key)){
@@ -39,7 +46,22 @@ class WishOrder{
       }
     }
     return $params;
+              */
+      
+       Hashtable params = new Hashtable();
+
+        Iterator it = keys.iterator();
+        while (it.hasNext()) {
+            String key = (String) it.next();
+            if (key != null) {
+                params.put(key, order.get(key));
+            }
+        }
+        return params;
   }
 
+    public String getId(){
+      return (String)order.get("id");
+  }
 
 }

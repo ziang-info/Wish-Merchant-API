@@ -1,6 +1,6 @@
-<?php
+
 /**
- * Copyright 2014 Wish.com, ContextLogic or its affiliates. All Rights Reserved.
+ * Copyright 2015 Ziang.info, ContextLogic or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -15,59 +15,68 @@
  * limitations under the License.
  */
 
-namespace Wish\Exception;
+package org.acein.wish.exception;
 
-class ServiceResponseException extends RuntimeException{
+import org.acein.wish.WishRequest;
+import org.acein.wish.WishResponse;
 
-  protected $response;
-  protected $request;
+public class ServiceResponseException extends RuntimeException{
 
-  protected $exceptionType;
-  protected $exceptionCode;
+  protected WishResponse response;
+  protected WishRequest request;
 
-  public function __construct($message,$request,$response){
-    parent::__construct($message);
-    $this->request = $request;
-    $this->response = $response;
+  protected String exceptionType;
+  protected String exceptionCode;
+
+  public ServiceResponseException(String message,WishRequest request,WishResponse response){
+    super(message);
+    this.request = request;
+    this.response = response;
   }
-  public function getExceptionCode(){
-    return $this->exceptionCode;
-  }
-
-  public function getExceptionType(){
-    return $this->exceptionType;
-  }
-
-  public function getRequest(){
-    return $this->request;
+  
+  public String getExceptionCode(){
+    return this.exceptionCode;
   }
 
-  public function setResponse($response){
-    $this->response = $response;
-  }
-  public function getResponse(){
-    return $this->response;
+  public String getExceptionType(){
+    return this.exceptionType;
   }
 
-  public function getErrorMessage(){
-    return $this->response ? $this->response->getMessage() : null;
+  public WishRequest getRequest(){
+    return this.request;
   }
 
-  public function getStatusCode(){
-    return $this->response ? $this->response->getStatusCode() : null;
+  public void setResponse(WishResponse response){
+    this.response = response;
+  }
+  public WishResponse getResponse(){
+    return this.response;
   }
 
-  public function __toString(){
+  public String getErrorMessage(){
+    return (this.response!=null) ? this.response.getMessage() : null;
+  }
+
+  public int getStatusCode(){
+    return (this.response!=null) ? this.response.getStatusCode() : null;
+  }
+
+  public String toString(){
+      String message = "unimplemented.";
+      
+      /*
     $message = get_class($this).': '
-     .'Message: '.$this->getMessage()."\n"
-     .'Status code: '.$this->getStatusCode()."\n"
-     .'Error message: '.$this->getErrorMessage()."\n"
+     .'Message: '.this.getMessage()."\n"
+     .'Status code: '.this.getStatusCode()."\n"
+     .'Error message: '.this.getErrorMessage()."\n"
      .'Stack trace: '."\n";
-     foreach($this->getTrace() as $trace){
+     foreach(this.getTrace() as $trace){
       $message = $message.$trace['file'].' at '.$trace['function'].':'.
         $trace['line']."\n";
      }
-     return $message;
+              */
+      
+     return message;
   }
 
 

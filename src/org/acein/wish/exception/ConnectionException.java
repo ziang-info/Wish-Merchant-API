@@ -1,4 +1,4 @@
-<?php
+
 /**
  * Copyright 2014 Wish.com, ContextLogic or its affiliates. All Rights Reserved.
  *
@@ -15,6 +15,11 @@
  * limitations under the License.
  */
 
-namespace Wish\Exception;
+package org.acein.wish.exception;
 
-class ConnectionException extends RuntimeException{}
+public class ConnectionException extends RuntimeException{
+
+    public ConnectionException(String error_message) {
+        super(error_message);
+    }
+}

@@ -1,4 +1,4 @@
-<?php
+
 /**
  * Copyright 2014 Wish.com, ContextLogic or its affiliates. All Rights Reserved.
  *
@@ -15,7 +15,11 @@
  * limitations under the License.
  */
 
-namespace Wish\Exception;
+package org.acein.wish.exception;
 
-class InvalidArgumentException extends \InvalidArgumentException
-  implements ExceptionInterface{}
+public class InvalidArgumentException extends Exception{
+
+    public InvalidArgumentException(String invalid_session_type) {
+        super(invalid_session_type);
+    }
+}
