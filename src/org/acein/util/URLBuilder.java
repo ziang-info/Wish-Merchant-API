@@ -43,12 +43,17 @@ public static String httpBuildQuery(Map<String, Object> params, String encoding)
     }
     StringBuilder sb = new StringBuilder();
     for (Map.Entry<String, Object> entry : params.entrySet()) {
-        if (sb.length() > 0) {
-            sb.append('&');
-        }
 
         String name = entry.getKey();
         Object value = entry.getValue();
+        
+        if(name.equalsIgnoreCase("") || ((String)value).equalsIgnoreCase("")){
+            continue;
+        }
+        
+        if (sb.length() > 0) {
+            sb.append('&');
+        }
 
 
         if (value instanceof Map) {

@@ -114,7 +114,6 @@ public class WishClient {
     public String authTest() throws Exception, InvalidArgumentException, ServiceResponseException {
         WishResponse response = this.getResponse("GET", "auth_test", null);
         return "success";
-
     }
 
     // PRODUCT

@@ -1,6 +1,6 @@
-<?php
+
 /**
- * Copyright 2014 Wish.com, ContextLogic or its affiliates. All Rights Reserved.
+ * Copyright 2015 Ziang.info, ContextLogic or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -14,18 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.acein.wish.test;
 
-
+/*
 require_once '../vendor/autoload.php';
-use Wish\WishAuth;
+
 use Wish\WishClient;
 
-$auth = new WishAuth('CLIENT_ID','CLIENT_SECRET','sandbox');
-$response = $auth->getToken('ACCESS_TOKEN','https://website.com');
-
-$token = $response->getData()->access_token;
-
+$token = 'ACCESS_TOKEN';
 $client = new WishClient($token,'sandbox');
 
-print "RESULT: ".$client->authTest();
+//Get an array of all your products
+$products = $client->getAllProducts();
+print(count($products));
 
+//Get an array of all product variations
+$product_vars = $client->getAllProductVariations();
+print(count($product_vars));
+
+*/

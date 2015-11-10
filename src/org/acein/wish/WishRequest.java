@@ -25,6 +25,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Hashtable;
+import java.util.logging.Logger;
 import org.acein.util.URLBuilder;
 import org.acein.wish.exception.ConnectionException;
 import org.acein.wish.exception.InvalidArgumentException;
@@ -118,7 +119,7 @@ public class WishRequest {
     */
     
     
-     public WishResponse execute() throws Exception, InvalidArgumentException, MalformedURLException {
+     public WishResponse execute() throws Exception {
  
          String urlStr = this.getRequestURL() + this.getVersion() + this.path;
         
@@ -147,12 +148,18 @@ public class WishRequest {
              OutputStream os = conn.getOutputStream();// 拿到输出流  
              // os.write("?path=c:/test.xml&test=2012".getBytes("utf-8"));  
              PrintWriter out = new PrintWriter(os);
-             out.print(URLBuilder.httpBuildQuery(params, null));
+             
+             String p = URLBuilder.httpBuildQuery(params, null);
+             Logger.getLogger("WishRequest").info(p);
+             
+             out.print(p);
 
+             /*
              out.flush();
              os.flush();
              out.close();
              os.close();
+                     */
         }
 
         InputStream is = conn.getInputStream();//拿到输入流  

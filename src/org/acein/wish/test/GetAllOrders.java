@@ -1,6 +1,6 @@
-<?php
+
 /**
- * Copyright 2014 Wish.com, ContextLogic or its affiliates. All Rights Reserved.
+ * Copyright 2015 Ziang.info, ContextLogic or its affiliates. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License").
  * You may not use this file except in compliance with the License.
@@ -14,7 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.acein.wish.test;
 
+/*
 require_once '../vendor/autoload.php';
 
 use Wish\WishClient;
@@ -64,3 +66,4 @@ $client->updateTrackingInfoById('53785043482e680c58a08f53',$tracker);
 //Refund an order
 $client->refundOrderById('537850c38b72ac0db9472cb4',
   WishReason::NO_MORE_INVENTORY);
+*/
