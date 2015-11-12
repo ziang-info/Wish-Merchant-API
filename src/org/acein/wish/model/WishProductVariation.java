@@ -42,9 +42,13 @@ public class WishProductVariation {
         }
         return params;
     }
-    
-    public String getSku(){
-      return (String)variant.get("sku");
-  }
+
+    public String getSku() {
+        return (String) variant.get("sku");
+    }
+
+    public void setInventory(int inventory) {
+        variant.put("inventory", inventory);
+    }
 
 }

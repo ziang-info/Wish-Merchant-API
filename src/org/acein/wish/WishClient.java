@@ -98,13 +98,13 @@ public class WishClient {
         do {
             params.put("start", start);
 
-            Iterator it = ((ArrayList) response.getData()).iterator();
-
-            while (it.hasNext()) {
-                Hashtable class_raw = (Hashtable) it.next();
-                //class_arr[] = new getClass(class_raw);
-                class_arr.add(getClass.getConstructor(Hashtable.class).newInstance(class_raw));
-            }
+//            Iterator it = ((ArrayList) response.getData()).iterator();
+//
+//            while (it.hasNext()) {
+//                Hashtable class_raw = (Hashtable) it.next();
+//                //class_arr[] = new getClass(class_raw);
+//                class_arr.add(getClass.getConstructor(Hashtable.class).newInstance(class_raw));
+//            }
             start += LIMIT;
         } while (response.hasMore());
 
@@ -122,15 +122,17 @@ public class WishClient {
         params.put("id", id);
 
         WishResponse response = this.getResponse("GET", "product", params);
-        return new WishProduct((Hashtable) response.getData());
+        //return new WishProduct((Hashtable) response.getData());
+        return null;
     }
 
-    public WishProduct createProduct(Hashtable object) throws Exception, InvalidArgumentException, ServiceResponseException {
+    public WishProduct createProduct(Hashtable object) throws Exception {
         WishResponse response = this.getResponse("POST", "product/add", object);
-        return new WishProduct((Hashtable) response.getData());
+        //return new WishProduct((Hashtable) response.getData());
+        return null;
     }
 
-    public String updateProduct(WishProduct product) throws Exception, InvalidArgumentException, ServiceResponseException {
+    public String updateProduct(WishProduct product) throws Exception {
 
         String[] params = {"id",
             "name",
@@ -174,8 +176,9 @@ public class WishClient {
         return "success";
     }
 
-    public ArrayList getAllProducts() throws NoSuchMethodException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, Exception, InvalidArgumentException, ServiceResponseException {
-        return this.getResponseIter("GET", "product/multi-get", WishProduct.class, null); // "Wish/Model/WishProduct"
+    public ArrayList getAllProducts() throws Exception {
+        Hashtable params = new Hashtable();
+        return this.getResponseIter("GET", "product/multi-get", WishProduct.class, params); // "Wish/Model/WishProduct"
     }
 
     public String removeExtraImages(WishProduct product) throws Exception, InvalidArgumentException, ServiceResponseException {
@@ -193,7 +196,8 @@ public class WishClient {
     // PRODUCT VARIATION
     public WishProductVariation createProductVariation(Hashtable object) throws Exception, InvalidArgumentException, ServiceResponseException {
         WishResponse response = this.getResponse("POST", "variant/add", object);
-        return new WishProductVariation((Hashtable) response.getData());
+        //return new WishProductVariation((Hashtable) response.getData());
+        return null;
     }
 
     public WishProductVariation getProductVariationBySKU(String sku) throws Exception, InvalidArgumentException, ServiceResponseException {
@@ -201,7 +205,8 @@ public class WishClient {
         params.put("sku", sku);
 
         WishResponse response = this.getResponse("GET", "variant", params);
-        return new WishProductVariation((Hashtable) response.getData());
+        //return new WishProductVariation((Hashtable) response.getData());
+        return null;
     }
 
     public String updateProductVariation(WishProductVariation var) throws Exception, InvalidArgumentException, ServiceResponseException {
@@ -276,7 +281,8 @@ public class WishClient {
         params.put("id", id);
 
         WishResponse response = this.getResponse("GET", "order", params);
-        return new WishOrder((Hashtable) response.getData());
+        //return new WishOrder((Hashtable) response.getData());
+        return null;
     }
 
     public ArrayList getAllChangedOrdersSince(Date time) throws NoSuchMethodException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, Exception, InvalidArgumentException, ServiceResponseException {
@@ -316,10 +322,10 @@ public class WishClient {
     }
 
     public String fulfillOrder(WishOrder order, WishTracker tracking_info) throws Exception, InvalidArgumentException, ServiceResponseException {
-        return this.fulfillOrderById(order.getId(), tracking_info);
+        return this.fulfillOrderById(order.getOrderId(), tracking_info);
     }
 
-    public String refundOrderById(String id, String reason, String note) throws Exception, InvalidArgumentException, ServiceResponseException {
+    public String refundOrderById(String id, int reason, String note) throws Exception, InvalidArgumentException, ServiceResponseException {
 
         Hashtable params = new Hashtable();
         params.put("id", id);
@@ -332,12 +338,12 @@ public class WishClient {
         return "success";
     }
 
-    public String refundOrder(WishOrder order, String reason, String note) throws Exception, InvalidArgumentException, ServiceResponseException {
-        return refundOrderById(order.getId(), reason, note);
+    public String refundOrder(WishOrder order, int reason, String note) throws Exception, InvalidArgumentException, ServiceResponseException {
+        return refundOrderById(order.getOrderId(), reason, note);
     }
 
     public String updateTrackingInfo(WishOrder order, WishTracker tracker) throws Exception, InvalidArgumentException, ServiceResponseException {
-        return this.updateTrackingInfoById(order.getId(), tracker);
+        return this.updateTrackingInfoById(order.getOrderId(), tracker);
     }
 
     public String updateTrackingInfoById(String id, WishTracker tracker) throws Exception, InvalidArgumentException, ServiceResponseException {
@@ -349,7 +355,7 @@ public class WishClient {
     }
 
     public String updateShippingInfo(WishOrder order, WishAddress address) throws Exception, InvalidArgumentException, ServiceResponseException {
-        return this.updateShippingInfoById(order.getId(), address);
+        return this.updateShippingInfoById(order.getOrderId(), address);
     }
 
     public String updateShippingInfoById(String id, WishAddress address) throws Exception, InvalidArgumentException, ServiceResponseException {
@@ -365,7 +371,8 @@ public class WishClient {
         params.put("id", id);
 
         WishResponse response = this.getResponse("GET", "ticket", params);
-        return new WishTicket((Hashtable) response.getData());
+        //return new WishTicket((Hashtable) response.getData());
+        return null;
     }
 
     public ArrayList getAllActionRequiredTickets() throws NoSuchMethodException, InstantiationException, IllegalArgumentException, IllegalAccessException, InvocationTargetException, Exception, InvalidArgumentException, ServiceResponseException {

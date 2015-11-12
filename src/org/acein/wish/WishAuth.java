@@ -17,6 +17,7 @@
 package org.acein.wish;
 
 import java.lang.reflect.Array;
+import java.net.URLEncoder;
 import java.util.Hashtable;
 import org.acein.wish.exception.ConnectionException;
 import org.acein.wish.exception.InvalidArgumentException;
@@ -43,15 +44,15 @@ public class WishAuth {
         this.session = new WishSession("", session_type, null);
     }
 
-    public WishResponse getToken(String code, String redirect_uri) throws Exception, UnauthorizedRequestException, InvalidArgumentException {
+    public WishResponse getToken(String code, String redirect_uri) throws Exception {
         String type = "POST";
         String path = "oauth/access_token";
         Hashtable params = new Hashtable<String, String>();
-        params.put("client_id", this.client_id);
-        params.put("client_secret", this.client_secret);
-        params.put("code", code);
+        params.put("client_id", URLEncoder.encode(this.client_id, "utf-8"));
+        params.put("client_secret", URLEncoder.encode(this.client_secret, "utf-8"));
+        params.put("code", URLEncoder.encode(code, "utf-8"));
         params.put("grant_type", "authorization_code");
-        params.put("redirect_uri", redirect_uri);
+        params.put("redirect_uri", URLEncoder.encode(redirect_uri, "utf-8"));
 
         WishRequest request = new WishRequest(this.session, type, path, params);
         WishResponse response = request.execute();

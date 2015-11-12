@@ -15,12 +15,12 @@
  */
 package org.acein.wish.test;
 
-import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.acein.wish.WishAuth;
 import org.acein.wish.WishClient;
 import org.acein.wish.WishResponse;
+import org.json.JSONObject;
 
 public class Connect {
 
@@ -29,21 +29,30 @@ public class Connect {
 
             System.out.println("Wish Merchant SDK for Java");
 
-            final String MERCHANT_ID="5639efb62b296c053f977d3f";
-            final String CLIENT_ID = "563e05a87845545a231642dd";
-            final String CLIENT_SECRET = "1ae400af836547d09aba562c287eee3a";
-            
+            //final String MERCHANT_ID = "5639efb62b296c053f977d3f";
+            final String CODE = "c390157fdfe7430b9b667ae75fa22f8a";
+            final String CLIENT_ID = "563e05a87845545a231642dd"; 
+            final String CLIENT_SECRET = "1ae400af836547d09aba562c287eee3a"; 
+
             WishAuth auth = new WishAuth(CLIENT_ID, CLIENT_SECRET, "sandbox");
 
-            WishResponse response = auth.getToken("ACCESS_TOKEN", "https://www.acein.net/ymt/callback.jsp");
+            // ACCESS_TOKEN
+            WishResponse response = auth.getToken(CODE, "https://www.ziang.info:8443/Test/wish/callback");
 
-            String token = (String) ((Hashtable) response.getData()).get("access_token");
+            String token = null;
 
-            WishClient client = new WishClient(token, "sandbox", null);
+            JSONObject data = response.getData();
+            if (data.has("access_token")) {
+                token = data.getString("access_token");
 
-            String result = "RESULT: " + client.authTest();
+                WishClient client = new WishClient(token, "sandbox", null);
 
-            System.out.println(result);
+                String result = "RESULT: " + client.authTest();
+
+                System.out.println(result);
+            } else {
+                System.out.println("No Access token get.");
+            }
         } catch (Exception ex) {
             Logger.getLogger(Connect.class.getName()).log(Level.SEVERE, null, ex);
         }

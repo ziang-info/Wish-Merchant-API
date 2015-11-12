@@ -24,11 +24,24 @@ import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.logging.Logger;
 import org.acein.util.URLBuilder;
 import org.acein.wish.exception.ConnectionException;
 import org.acein.wish.exception.InvalidArgumentException;
+import org.apache.http.Consts;
+import org.apache.http.HttpEntity;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
 public class WishRequest {
@@ -41,9 +54,9 @@ public class WishRequest {
     private WishSession session;
     private String method;
     private String path;
-    private Hashtable params;
+    private Hashtable<String,String> params;
 
-    public WishRequest(WishSession session, String method, String path, Hashtable params) {
+    public WishRequest(WishSession session, String method, String path, Hashtable<String,String> params) {
         this.session = session;
         this.method = method;
         this.path = path;
@@ -118,8 +131,8 @@ public class WishRequest {
     }
     */
     
-    
-     public WishResponse execute() throws Exception {
+    /*
+     public WishResponse execute2() throws Exception {
  
          String urlStr = this.getRequestURL() + this.getVersion() + this.path;
         
@@ -135,8 +148,8 @@ public class WishRequest {
         conn.setDoOutput(true);
         conn.setInstanceFollowRedirects(true);
         conn.setConnectTimeout(10000);
-        conn.setRequestProperty("content-type", "text/html");
-        conn.setRequestProperty("User-agent","wish-java-sdk");
+        conn.setRequestProperty("content-type", "text/json");
+        conn.setRequestProperty("User-agent","wish-php-sdk");
         // options.put("CURLOPT_RETURNTRANSFER", true);
         // options.put("CURLOPT_HEADER", "true");
         
@@ -153,13 +166,10 @@ public class WishRequest {
              Logger.getLogger("WishRequest").info(p);
              
              out.print(p);
-
-             /*
              out.flush();
              os.flush();
              out.close();
-             os.close();
-                     */
+             os.close();                   
         }
 
         InputStream is = conn.getInputStream();//拿到输入流  
@@ -178,5 +188,63 @@ public class WishRequest {
         Hashtable decoded_result = new Hashtable(); // From json structure.
         
         return new WishResponse(this, decoded_result, result);
+    }
+     */
+         public WishResponse execute() throws Exception {
+
+        String urlStr = this.getRequestURL() + this.getVersion() + this.path;
+        String result = null;
+
+        CloseableHttpClient httpclient = HttpClients.createDefault();
+        CloseableHttpResponse response = null;
+
+        if (method.equalsIgnoreCase("GET")) {
+            urlStr = urlStr + "?" + URLBuilder.httpBuildQuery((Hashtable) params, null);//http_build_query(params);
+            System.out.println("http get:" + urlStr);
+
+            HttpGet httpget = new HttpGet(urlStr);
+            response = httpclient.execute(httpget);
+
+        } else {
+            List<NameValuePair> formparams = new ArrayList<NameValuePair>();
+             //formparams.add(new BasicNameValuePair("param1", "value1"));
+            //formparams.add(new BasicNameValuePair("param2", "value2"));
+
+            Enumeration<String> en = params.keys();
+            while (en.hasMoreElements()) {
+                String key = en.nextElement();
+                formparams.add(new BasicNameValuePair(key, params.get(key)));
+            }
+
+            UrlEncodedFormEntity entity = new UrlEncodedFormEntity(formparams, Consts.UTF_8);
+            HttpPost httppost = new HttpPost(urlStr);
+            httppost.setEntity(entity);
+
+            response = httpclient.execute(httppost);
+        }
+
+        try {
+            HttpEntity entity = response.getEntity();
+            if (entity != null) {
+                InputStream instream = entity.getContent();
+
+                // do something useful
+                InputStreamReader isr = new InputStreamReader(instream);
+                BufferedReader br = new BufferedReader(isr);
+                result = br.readLine();
+                System.out.println(result);
+
+                instream.close();
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            response.close();
+        }
+
+        //JSONObject j = new JSONObject(respStr);
+        //Hashtable decoded_result = new Hashtable(); // From json structure.
+        return new WishResponse(this, /*decoded_result,*/ result);
     }
 }

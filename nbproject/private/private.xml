@@ -3,34 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/lattimore/workspace/Wish-Merchant-API/src/org/acein/util/URLBuilder.java</file>
             <file>file:/home/lattimore/workspace/Wish-Merchant-API/src/org/acein/wish/WishClient.java</file>
-            <file>file:/home/lattimore/workspace/Wish-Merchant-API/src/org/acein/wish/test/UpdateProduct.java</file>
             <file>file:/home/lattimore/workspace/Wish-Merchant-API/src/org/acein/wish/WishResponse.java</file>
-            <file>file:/home/lattimore/workspace/Wish-Merchant-API/src/org/acein/wish/model/WishProductVariation.java</file>
-            <file>file:/home/lattimore/workspace/Wish-Merchant-API/src/org/acein/wish/model/WishAddress.java</file>
-            <file>file:/home/lattimore/workspace/Wish-Merchant-API/src/org/acein/wish/exception/OrderAlreadyFulfilledException.java</file>
-            <file>file:/home/lattimore/workspace/Wish-Merchant-API/src/org/acein/wish/exception/RuntimeException.java</file>
-            <file>file:/home/lattimore/workspace/Wish-Merchant-API/src/org/acein/wish/exception/InvalidArgumentException.java</file>
-            <file>file:/home/lattimore/workspace/Wish-Merchant-API/src/org/acein/wish/WishPager.java</file>
-            <file>file:/home/lattimore/workspace/Wish-Merchant-API/src/org/acein/wish/test/Main.java</file>
-            <file>file:/home/lattimore/workspace/Wish-Merchant-API/src/org/acein/wish/exception/UnauthorizedRequestException.java</file>
-            <file>file:/home/lattimore/workspace/Wish-Merchant-API/src/org/acein/wish/test/Connect.java</file>
-            <file>file:/home/lattimore/workspace/Wish-Merchant-API/src/org/acein/wish/model/WishTracker.java</file>
-            <file>file:/home/lattimore/workspace/Wish-Merchant-API/src/org/acein/wish/model/WishReason.java</file>
-            <file>file:/home/lattimore/workspace/Wish-Merchant-API/src/org/acein/wish/exception/ConnectionException.java</file>
-            <file>file:/home/lattimore/workspace/Wish-Merchant-API/src/org/acein/wish/test/GetAllProducts.java</file>
-            <file>file:/home/lattimore/workspace/Wish-Merchant-API/src/org/acein/wish/model/WishShippingDetail.java</file>
-            <file>file:/home/lattimore/workspace/Wish-Merchant-API/src/org/acein/wish/model/WishTicket.java</file>
-            <file>file:/home/lattimore/workspace/Wish-Merchant-API/src/org/acein/wish/test/GetAllOrders.java</file>
-            <file>file:/home/lattimore/workspace/Wish-Merchant-API/src/org/acein/wish/model/WishProduct.java</file>
-            <file>file:/home/lattimore/workspace/Wish-Merchant-API/src/org/acein/wish/test/CreateProduct.java</file>
-            <file>file:/home/lattimore/workspace/Wish-Merchant-API/src/org/acein/wish/model/WishOrder.java</file>
-            <file>file:/home/lattimore/workspace/Wish-Merchant-API/src/org/acein/wish/exception/ServiceResponseException.java</file>
-            <file>file:/home/lattimore/workspace/Wish-Merchant-API/src/org/acein/wish/exception/MissingFieldException.java</file>
             <file>file:/home/lattimore/workspace/Wish-Merchant-API/src/org/acein/wish/WishRequest.java</file>
             <file>file:/home/lattimore/workspace/Wish-Merchant-API/src/org/acein/wish/WishAuth.java</file>
-            <file>file:/home/lattimore/workspace/Wish-Merchant-API/src/org/acein/wish/WishSession.java</file>
+            <file>file:/home/lattimore/workspace/Wish-Merchant-API/src/org/acein/wish/model/WishProduct.java</file>
+            <file>file:/home/lattimore/workspace/Wish-Merchant-API/src/org/acein/wish/test/Connect.java</file>
         </group>
     </open-files>
 </project-private>
