@@ -15,52 +15,6 @@
  * limitations under the License.
  */
 
-/* 
-// Refer to PHP SDK
-
-namespace Wish;
-
-use Wish\Exception\InvalidArgumentException;
-
-class WishSession{
-  const SESSION_PROD = 1;
-  const SESSION_SANDBOX = 2;
-  const SESSION_STAGE = 3;
-  private static $api_key;
-  private static $session_type;
-  private static $merchant_id;
-
-  public function __construct($access_token,$session_type,$merchant_id=null){
-    this.access_token = $access_token;
-    this.merchant_id = $merchant_id;
-    switch($session_type){
-      case 'sandbox':
-        this.session_type = static::SESSION_SANDBOX;break;
-      case 'prod':
-        this.session_type = static::SESSION_PROD;break;
-      case 'stage':
-        this.session_type = static::SESSION_STAGE;break;
-      default:
-        throw new InvalidArgumentException('Invalid session type');
-    }
-  }
-
-  public function getAccessToken(){
-    return this.access_token;
-  }
-  public function getSessionType(){
-    return this.session_type;
-  }
-  public function getMerchantId(){
-    return this.merchant_id;
-  }
-
-
-}
-
-*/
-
-
 package org.acein.wish;
 
 public class WishSession {

@@ -62,7 +62,9 @@ public class ServiceResponseException extends RuntimeException{
   }
 
   public String toString(){
-      String message = "unimplemented.";
+      String message = "ServiceResponseException(" + exceptionCode + ", " 
+              + exceptionType + ")："
+              + this.getMessage();
       
       /*
     $message = get_class($this).': '

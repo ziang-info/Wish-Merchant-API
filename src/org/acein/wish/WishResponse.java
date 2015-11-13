@@ -16,8 +16,6 @@
  */
 package org.acein.wish;
 
-import java.util.Hashtable;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class WishResponse {

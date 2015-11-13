@@ -16,6 +16,8 @@
  */
 package org.acein.wish.test;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import org.acein.wish.WishClient;
@@ -38,11 +40,18 @@ public class GetAllOrders {
         //$one_order = $client.getOrderById("53767deb43d2470c6d04d856");
         //$client.fulfillOrder($one_order);
         //Get an array of all changed orders since January 20, 2010
-        ArrayList changed_orders = client.getAllChangedOrdersSince(new Date("2010-01-20"));
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+        String dateInString = "31-08-1982 10:20:56";
+        Date date = sdf.parse(dateInString);
+
+        ArrayList changed_orders
+                = client.getAllChangedOrdersSince(date);
         System.out.println(changed_orders.size() + " changed orders.\n");
 
         //Get an array of all unfufilled orders since January 20, 2010
-        ArrayList unfulfilled_orders = client.getAllUnfulfilledOrdersSince(new Date("2010-01-20"));
+        ArrayList unfulfilled_orders
+                = client.getAllUnfulfilledOrdersSince(date);
         System.out.println(unfulfilled_orders.size() + " changed orders.\n");
 
         //Fulfill all unfulfilled orders

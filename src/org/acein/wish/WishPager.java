@@ -1,45 +1,45 @@
-
 /**
- * Copyright 2015 Ziang.info, ContextLogic or its affiliates. All Rights Reserved.
+ * Copyright 2015 Ziang.info, ContextLogic or its affiliates. All Rights
+ * Reserved.
  *
- * Licensed under the Apache License, Version 2.0 (the "License").
- * You may not use this file except in compliance with the License.
- * You may obtain a copy of the License at 
- * 
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * Licensed under the Apache License, Version 2.0 (the "License"). You may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
  */
 package org.acein.wish;
 
-public class WishPager{
-  
-  private WishPager pagerData;
-  private String next;
-  private String prev;
+public class WishPager {
 
-  public WishPager(WishPager pager){
-    this.pagerData = pager;
+    private WishPager pagerData;
+    private String next;
+    private String prev;
 
-    if(pager.next != null){
-      this.next = pager.next;
+    public WishPager(WishPager pager) {
+        this.pagerData = pager;
+
+        if (pager.next != null) {
+            this.next = pager.next;
+        }
+
+        if (pager.prev != null) {
+            this.prev = pager.prev;//ious;
+        }
     }
-    
-    if(pager.prev != null){
-      this.prev = pager.prev;//ious;
+
+    public boolean hasNext() {
+        return (this.next != null);
     }
-  }
 
-  public boolean hasNext(){
-    return (this.next != null);
-  }
-
-  public boolean hasPrev(){
-    return (this.prev != null);
-  }
+    public boolean hasPrev() {
+        return (this.prev != null);
+    }
 
 }

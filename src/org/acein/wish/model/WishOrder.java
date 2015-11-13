@@ -19,12 +19,18 @@ package org.acein.wish.model;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
+import org.json.JSONObject;
 
 public class WishOrder {
 
     private Hashtable order;
+    
+    private String id;
+    private String tracking_provider;
+    private int tracking_number;
+    private String ship_note;
 
-    public WishOrder(Hashtable order) {
+    public WishOrder(JSONObject order) {
         /*
          $order = $order->Order;
   

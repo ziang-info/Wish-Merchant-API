@@ -19,18 +19,12 @@ package org.acein.wish;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.logging.Logger;
 import org.acein.util.URLBuilder;
-import org.acein.wish.exception.ConnectionException;
 import org.acein.wish.exception.InvalidArgumentException;
 import org.apache.http.Consts;
 import org.apache.http.HttpEntity;
@@ -42,7 +36,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONObject;
 
 public class WishRequest {
 
@@ -190,7 +183,8 @@ public class WishRequest {
         return new WishResponse(this, decoded_result, result);
     }
      */
-         public WishResponse execute() throws Exception {
+    
+    public WishResponse execute() throws Exception {
 
         String urlStr = this.getRequestURL() + this.getVersion() + this.path;
         String result = null;
@@ -201,13 +195,13 @@ public class WishRequest {
         if (method.equalsIgnoreCase("GET")) {
             urlStr = urlStr + "?" + URLBuilder.httpBuildQuery((Hashtable) params, null);//http_build_query(params);
             System.out.println("http get:" + urlStr);
-
+            
             HttpGet httpget = new HttpGet(urlStr);
             response = httpclient.execute(httpget);
-
-        } else {
+            
+        } else if (method.equalsIgnoreCase("POST")) {
             List<NameValuePair> formparams = new ArrayList<NameValuePair>();
-             //formparams.add(new BasicNameValuePair("param1", "value1"));
+            //formparams.add(new BasicNameValuePair("param1", "value1"));
             //formparams.add(new BasicNameValuePair("param2", "value2"));
 
             Enumeration<String> en = params.keys();
@@ -215,12 +209,14 @@ public class WishRequest {
                 String key = en.nextElement();
                 formparams.add(new BasicNameValuePair(key, params.get(key)));
             }
-
+            
             UrlEncodedFormEntity entity = new UrlEncodedFormEntity(formparams, Consts.UTF_8);
             HttpPost httppost = new HttpPost(urlStr);
             httppost.setEntity(entity);
-
+            
             response = httpclient.execute(httppost);
+        } else {
+            Logger.getLogger("WishRequest").info("Invalid Submit Method.");
         }
 
         try {

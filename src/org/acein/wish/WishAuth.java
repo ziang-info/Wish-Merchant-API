@@ -16,7 +16,6 @@
  */
 package org.acein.wish;
 
-import java.lang.reflect.Array;
 import java.net.URLEncoder;
 import java.util.Hashtable;
 import org.acein.wish.exception.ConnectionException;

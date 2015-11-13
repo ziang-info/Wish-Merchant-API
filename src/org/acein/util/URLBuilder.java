@@ -46,10 +46,8 @@ public class URLBuilder {
             String name = entry.getKey();
             Object value = entry.getValue();
 
-            if (name.equalsIgnoreCase("") 
-                    || 
-                    ((value instanceof String) && ((String) value).equalsIgnoreCase("")
-                    )) {
+            if (name.equalsIgnoreCase("")
+                    || ((value instanceof String) && ((String) value).equalsIgnoreCase(""))) {
                 continue;
             }
 
@@ -183,7 +181,7 @@ public class URLBuilder {
     /* Test functions                                                            */
     /* ========================================================================= */
     public static void main(String[] args) {
-    //basicTest();
+        //basicTest();
         //testWithMap();
         //testWithList();
         //testWithNestedMap();

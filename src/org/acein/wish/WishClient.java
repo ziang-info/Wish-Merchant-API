@@ -48,7 +48,7 @@ public class WishClient {
     }
 
     public WishResponse getResponse(String type, String path, Hashtable params)
-            throws Exception, UnauthorizedRequestException, InvalidArgumentException, ServiceResponseException {
+            throws Exception {
 
         WishRequest request = new WishRequest(this.session, type, path, params);
 
@@ -122,7 +122,7 @@ public class WishClient {
         params.put("id", id);
 
         WishResponse response = this.getResponse("GET", "product", params);
-        //return new WishProduct((Hashtable) response.getData());
+        WishProduct prod =  new WishProduct(response.getData());
         return null;
     }
 
@@ -134,6 +134,7 @@ public class WishClient {
 
     public String updateProduct(WishProduct product) throws Exception {
 
+        /*
         String[] params = {"id",
             "name",
             "description",
@@ -143,17 +144,28 @@ public class WishClient {
             "upc",
             "main_image",
             "extra_images"};
+                */
 
-        Hashtable object = product.getParams(new ArrayList<String>(Arrays.asList(params)));
+        Hashtable paramsTable = new Hashtable();
+        //product.getParams(new ArrayList<String>(Arrays.asList(params)));
+        paramsTable.put("id", product.getId());
+        paramsTable.put("name", product.getName());
+        paramsTable.put("description", product.getDescription());
+        paramsTable.put("tags", product.getTags());  // lattimore: tags array or tag string.
+        paramsTable.put("brand", product.getBrand());
+        paramsTable.put("landing_page_url", product.getLanding_page_url());
+        paramsTable.put("upc", product.getUpc());
+        paramsTable.put("main_image", product.getMain_image());
+        paramsTable.put("extra_images", product.getExtra_images());
 
-        WishResponse response = this.getResponse("POST", "product/update", object);
+        WishResponse response = this.getResponse("POST", "product/update", paramsTable);
 
         return "success";
     }
 
-    public void enableProduct(WishProduct product) throws Exception, InvalidArgumentException, ServiceResponseException {
-        Hashtable p = product.getParams(new ArrayList<String>(Arrays.asList(new String[]{"id"})));
-        this.enableProductById((String) p.get("id"));//product.id);
+    public void enableProduct(WishProduct product) throws Exception {
+        //Hashtable p = product.getParams(new ArrayList<String>(Arrays.asList(new String[]{"id"})));
+        this.enableProductById(product.getId());//product.id);
     }
 
     public String enableProductById(String id) throws Exception, InvalidArgumentException, ServiceResponseException {

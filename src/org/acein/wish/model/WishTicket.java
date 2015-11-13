@@ -35,7 +35,7 @@ public class WishTicket {
          */
     }
 
-    public Hashtable getParams(ArrayList keys) {
+    public Hashtable getParams2(ArrayList keys) {
         Hashtable params = new Hashtable();
 
         Iterator it = keys.iterator();
